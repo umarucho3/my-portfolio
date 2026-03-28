@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marycho Ureta | Software Developer</title>
+    <meta name="description" content="Software Developer specializing in .Net, VB, C#, and UI/UX Design">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configure Tailwind (replaces tailwind.config.js) -->
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            // Add any custom colors, fonts, etc. here
+          }
+        }
+      }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* Dark Mode Styles */
+        .dark { color-scheme: dark; }
+        .dark body { background-color: #111827; color: white; }
+        .dark .bg-white { background-color: #1f2937; }
+        .dark .bg-gray-50 { background-color: #111827; }
+        .dark .text-gray-900 { color: white; }
+        .dark .text-gray-600 { color: #9ca3af; }
+        .dark .border-gray-200 { border-color: #374151; }
+        
+        /* Animations */
+        .hover-lift { transition: transform 0.3s; }
+        .hover-lift:hover { transform: translateY(-4px); }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body class="antialiased bg-gray-50 text-gray-900 min-h-screen">
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <!-- Chat Window -->
+        <div id="chat-window" class="hidden w-80 md:w-96 bg-white shadow-2xl rounded-2xl border border-gray-200 mb-4 overflow-hidden">
+            <!-- Chat Header -->
+            <div class="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <img src="C:\Users\maureta\Downloads\cho1.jpeg" alt="Cho" class="w-10 h-10 rounded-full object-cover">
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm">Chat with Cho</h3>
+                        <p class="text-gray-500 text-xs uppercase">Online</p>
+                    </div>
+                </div>
+                <button id="close-chat" class="text-gray-600 hover:text-black">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-box" class="h-80 overflow-y-auto p-4 space-y-4 bg-gray-50">
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none border text-sm max-w-[85%]">
+                    Hi there! 👋🏻 I'm Cho. Thanks for checking out my website! Feel free to ask about my projects. How can I help you today?
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <form id="chat-form" class="p-3 bg-white border-t flex gap-2">
+                <input type="text" id="message" autocomplete="off" 
+                       class="flex-1 bg-gray-50 border rounded-xl px-4 py-2 text-sm" 
+                       placeholder="Type a message...">
+                <button type="submit" class="bg-black text-white w-10 h-10 rounded-xl">
+                    <i class="fas fa-paper-plane text-sm"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Toggle Chat Button -->
+            <button id="toggle-chat" class="bg-black dark:bg-white text-white dark:text-black rounded-full shadow-lg px-6 py-3.5 hover:opacity-90 transition-colors border border-transparent dark:border-gray-200">
+                <i class="fas fa-comment-dots mr-2"></i>
+                <span class="font-semibold text-sm">Chat with Cho</span>
+            </button>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-gray-50">
+        <div class="max-w-5xl mx-auto px-4 md:px-6 py-8">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 text-center md:text-left">
+                
+                <!-- Profile Images -->
+                <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-lg overflow-hidden group cursor-pointer shadow-sm">
+                    <img src="C:\Users\maureta\Downloads\cho1.jpeg" alt="Marycho Ureta" class="absolute inset-0 w-full h-full object-cover group-hover:opacity-0 transition-opacity duration-300">
+                    <img src="C:\Users\maureta\Downloads\cho2.jpeg" alt="Marycho Ureta" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                </div>
+
+                <div class="flex-1 w-full">
+                    <!-- Name & Badge -->
+                    <div class="flex items-center justify-center md:justify-between mb-1">
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-2xl md:text-3xl font-bold">Marycho Ureta</h1>
+                            <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+
+                        <!-- Dark Mode Toggle -->
+                        <button id="darkModeToggle" class="absolute top-4 right-4 md:relative md:top-0 md:right-0 w-10 h-10 flex items-center justify-center rounded-lg border hover:text-black hover:bg-gray-100">
+                            <i class="fas fa-moon dark-icon"></i>
+                            <i class="fas fa-sun light-icon hidden"></i>
+                        </button>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="flex items-center justify-center md:justify-start gap-2 text-gray-600 mb-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span class="text-xs">Mandaluyong, Metro Manila, Philippines</span>
+                    </div>
+
+                    <p class="text-sm md:text-base font-medium mt-2 mb-4">Software Developer | UI/UX</p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-2.5 justify-center md:justify-start">
+                        <a href="tel:09452749233" class="border border-gray-200 px-5 py-2.5 rounded-lg hover:text-black hover:bg-gray-100 transition">
+                            <i class="fas fa-phone-alt mr-2"></i>Call
+                        </a>
+                        <a href="mailto:uretacho@gmail.com" class="border border-gray-200 px-5 py-2.5 rounded-lg hover:text-black hover:bg-gray-100 transition">
+                            <i class="fas fa-envelope mr-2"></i>Send Email
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 py-4">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+            
+            <!-- Left Sidebar -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- About Me -->
+                <section class="bg-white rounded-lg shadow-sm border p-6 fade-in hover-lift">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-info-circle text-gray-500"></i>
+                        <h2 class="text-xl font-bold">About Me</h2>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                        Hi! I'm Cho, a passionate learner and tech enthusiast.
+                    </p>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        I'm currently exploring the world of web and Desktop development and design.
+                    </p>
+                </section>
+
+                <!-- Education -->
+                <section class="bg-white rounded-lg shadow-sm border p-6 fade-in hover-lift">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-graduation-cap text-gray-500"></i>
+                        <h2 class="text-xl font-bold">Education</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-semibold">BS Information Technology</p>
+                            <p class="text-sm text-gray-600 mt-0.5">Quezon City University</p>
+                            <p class="text-xs text-gray-500 mt-1">2018 - 2022</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Information Communication Technology</p>
+                            <p class="text-sm text-gray-600 mt-0.5">Cielito Zamora Senior High School</p>
+                            <p class="text-xs text-gray-500 mt-1">2016 - 2018</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tech Stack -->
+                <section class="bg-white rounded-lg shadow-sm border p-6 fade-in hover-lift">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fas fa-cog text-gray-500"></i>
+                        <h2 class="text-xl font-bold">Tech Stack</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-bold mb-3">Basic Frontend</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="border px-3 py-1 rounded-lg text-sm">HTML</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">CSS</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">JavaScript</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">Figma</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">Canva</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold mb-3">Backend</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="border px-3 py-1 rounded-lg text-sm">.NET</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">VB</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">C#</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">PHP</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">JAVA</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold mb-3">Database</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="border px-3 py-1 rounded-lg text-sm">MS SQL Server</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">MySQL</span>
+                                <span class="border px-3 py-1 rounded-lg text-sm">Actian X Ingres</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            
+                <!-- Certifications -->
+                <section class="bg-white rounded-lg shadow-sm border p-6 fade-in hover-lift">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fas fa-certificate text-gray-500"></i>
+                        <h2 class="text-xl font-bold">Certifications</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="cursor-pointer p-2 rounded-lg border hover:text-black hover:bg-gray-50 transition" 
+                             onclick="openModal('C:\\Users\\maureta\\Downloads\\mongodb.jpg')">
+                            <p class="font-semibold text-sm">SQL Experts</p>
+                            <p class="text-xs text-gray-500 mt-1">MongoDB • 2025</p>
+                        </div>
+
+                        <div class="cursor-pointer p-2 rounded-lg border hover:text-black hover:bg-gray-50 transition" 
+                             onclick="openModal('C:\Users\maureta\Downloads\cert2.jpg')">
+                            <p class="font-semibold text-sm "> Developing Web Applications with JavaScript, HTML5 and CCS</p>
+                            <p class="text-xs text-gray-500 mt-1">Oracle Mylearn • 2025</p>
+                        </div>
+
+                        <div class="cursor-pointer p-2 rounded-lg border hover:text-black hover:bg-gray-50 transition" 
+                             onclick="openModal('C:\Users\maureta\Downloads\cert3.jpg')">
+                            <p class="font-semibold text-sm "> Introduction to OpenRoad Application & Actian X and Ingres SQL</p>
+                            <p class="text-xs text-gray-500 mt-1">Dsource, Inc • 2023</p>
+                        </div>
+
+                        <div class="cursor-pointer p-2 rounded-lg border hover:text-black hover:bg-gray-50 transition" 
+                             onclick="openModal('C:\\Users\\maureta\\Downloads\\dict.jpg')">
+                            <p class="font-semibold text-sm ">  Cybersecurity: How to Prevent, Detect and React from Cyber Threats & Attacks </p>
+                            <p class="text-xs text-gray-500 mt-1">DICT • 2021</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Add this to your HTML where the modal is defined -->
+            <div id="certModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 items-center justify-center">
+                <!-- Close Button (X) -->
+                <button 
+                    onclick="closeModal()" 
+                    class="absolute top-4 right-4 text-white hover:text-gray-300 transition z-10">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                
+                <!-- Modal Content -->
+                <div class="max-w-5xl max-h-[90vh] overflow-auto p-4">
+                    <img id="modalImage" src="" alt="Certificate" class="max-w-full h-auto rounded-lg">
+                </div>
+            </div>
+
+            <!-- Right Content -->
+            <div class="lg:col-span-3 space-y-6">
+                
+                <!-- Experience -->
+                <section class="bg-white rounded-lg shadow-sm border p-6 fade-in hover-lift">
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fas fa-briefcase text-gray-500"></i>
+                        <h2 class="text-xl font-bold">Experience</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between gap-4 border-l-2 border-green-500 pl-4">
+                            <div>
+                                <h3 class="font-semibold">.Net Developer | VB | C#</h3>
+                                <p class="text-sm text-gray-600 mt-0.5">DBPSC Service Corp. • Pag-IBIG Fund • Fulltime</p>
+                            </div>
+                            <span class="text-sm text-gray-500 whitespace-nowrap">2022 - Present</span>
+                        </div>
+
+                        <div class="flex justify-between gap-4 border-l-2 border-gray-300 pl-4">
+                            <div>
+                                <h3 class="font-semibold">System Analyst</h3>
+                                <p class="text-sm text-gray-600 mt-0.5">Capstone</p>
+                            </div>
+                            <span class="text-sm text-gray-500 whitespace-nowrap">2021-2022</span>
+                        </div>
+
+                        <div class="flex justify-between gap-4 border-l-2 border-gray-300 pl-4">
+                            <div>
+                                <h3 class="font-semibold">Data Encoder</h3>
+                                <p class="text-sm text-gray-600 mt-0.5">On the Job Training</p>
+                            </div>
+                            <span class="text-sm text-gray-500 whitespace-nowrap">2017-2018</span>
+                        </div>
+                    </div>
+                </section>
+
+                
+
+                <!-- Projects -->
+                <section class="bg-white rounded-lg shadow-sm border p-6 fade-in hover-lift">
+                    <h2 class="text-xl font-bold mb-6">Projects</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border rounded-lg overflow-hidden hover-lift">
+                            <img src="C:\Users\maureta\Downloads\Picture1.jpg" alt="HLMS" class="w-full h-32 object-cover bg-gray-100">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-1">Housing Loan Management System</h3>
+                                <p class="text-xs text-gray-600 mb-3">Revitalized System using Openroad and Actian X</p>
+                                <a href="#" class="text-sm text-blue-600 hover:underline">View Image</a>
+                            </div>
+                        </div>
+
+                        <div class="border rounded-lg overflow-hidden hover-lift">
+                            <img src="C:\Users\maureta\Downloads\Picture2.jpg" alt="CTS" class="w-full h-32 object-cover bg-gray-100">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-1">CTS Cancellation System</h3>
+                                <p class="text-xs text-gray-600 mb-3">Automating Demand/Cancellation Notices</p>
+                                <a href="#" class="text-sm text-blue-600 hover:underline">View Image</a>
+                            </div>
+                        </div>
+
+                        <div class="border rounded-lg overflow-hidden hover-lift">
+                            <img src="C:\Users\maureta\Downloads\Picture3.jpg" alt="Mora" class="w-full h-32 object-cover bg-gray-100">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-1">Housing Loan Moratorium Utility</h3>
+                                <p class="text-xs text-gray-600 mb-3">Process Application for Loan Moratorium</p>
+                                <a href="#" class="text-sm text-blue-600 hover:underline">View Image</a>
+                            </div>
+                        </div>
+
+                        <div class="border rounded-lg overflow-hidden hover-lift">
+                            <img src="C:\Users\maureta\Downloads\Picture4.jpg" alt="OTCS" class="w-full h-32 object-cover bg-gray-100">
+                            <div class="p-4">
+                                <h3 class="font-semibold mb-1">Outsourcing Tele-collection System</h3>
+                                <p class="text-xs text-gray-600 mb-3">Extractions of Updated payments</p>
+                                <a href="#" class="text-sm text-blue-600 hover:underline">View Image</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact -->
+                <section class="bg-white rounded-lg shadow-sm border p-6 fade-in hover-lift h-[330px]">
+                    <h3 class="text-2xl font-extrabold mb-4">
+                        Let's work <span class="text-gray-400">together.</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                        I am Open to Work and Collaboration. You can reach out to me via email or connect with me on social media.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap">
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase mb-3">Follow Me</p>
+                            <div class="flex gap-3">
+                                <a href="https://www.linkedin.com/in/marycho-ureta-57b153307" 
+                                   class="w-9 h-9 rounded-lg bg-gray-50 flex items-center justify-center hover:bg-blue-50 hover:text-blue-600 transition">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://github.com/umarucho3" 
+                                   class="w-9 h-9 rounded-lg bg-gray-50 flex items-center justify-center hover:text-black hover:bg-gray-200 transition">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-xs font-bold text-gray-400 uppercase mb-3">Get in Touch</p>
+                            <div class="space-y-2">
+                                <a href="mailto:uretacho@gmail.com" class="flex items-center gap-2 p-2 border hover:text-black rounded-lg hover:bg-gray-50 transition">
+                                    <i class="fas fa-envelope text-gray-400"></i>
+                                    <span class="text-sm">uretacho@gmail.com</span>
+                                </a>
+                                <a href="tel:09452749233" class="flex items-center gap-2 p-2 border hover:text-black rounded-lg hover:bg-gray-50 transition">
+                                    <i class="fas fa-phone-alt text-gray-400"></i>
+                                    <span class="text-sm">09452749233</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12">
+        <div class="max-w-4xl mx-auto px-6 py-10 text-center border-t">
+            <p class="text-sm">© 2026 Marycho Ureta. All Rights Reserved.</p>
+            <p class="text-sm text-gray-500">Developed in Mandaluyong City, Metro Manila, Philippines</p>
+        </div>
+    </footer>
+
+    <!-- Certification Modal -->
+    <div id="certModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4" onclick="closeModal()">
+        <div class="relative max-w-4xl w-full" onclick="event.stopPropagation()">
+            <button class="absolute -top-12 right-0 text-white hover:text-gray-300" onclick="closeModal()">
+                ✕ Close
+            </button>
+            <img id="modalImage" src="" alt="Certification" class="w-full h-auto rounded-xl shadow-2xl">
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        const darkToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        const darkIcon = document.querySelector('.dark-icon');
+        const lightIcon = document.querySelector('.light-icon');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            html.classList.add('dark');
+            darkIcon.classList.add('hidden');
+            lightIcon.classList.remove('hidden');
+        }
+
+        darkToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Chat Widget
+        const toggleChat = document.getElementById('toggle-chat');
+        const closeChat = document.getElementById('close-chat');
+        const chatWindow = document.getElementById('chat-window');
+        const chatForm = document.getElementById('chat-form');
+        const chatBox = document.getElementById('chat-box');
+        const messageInput = document.getElementById('message');
+
+        toggleChat.addEventListener('click', () => {
+            chatWindow.classList.remove('hidden');
+            messageInput.focus();
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatWindow.classList.add('hidden');
+        });
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userMsg = messageInput.value.trim();
+            if (!userMsg) return;
+
+            // Add user message
+            chatBox.innerHTML += `
+                <div class="bg-black text-white p-3 rounded-2xl rounded-tr-none text-sm max-w-[85%] ml-auto">
+                    ${userMsg}
+                </div>`;
+            
+            messageInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Add AI thinking bubble
+            const aiId = 'ai-' + Date.now();
+            chatBox.innerHTML += `
+                <div id="${aiId}" class="bg-white p-3 rounded-2xl rounded-tl-none border text-sm max-w-[85%]">
+                    <span class="text-gray-400">Typing...</span>
+                </div>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Simulate AI response (replace with your actual API call)
+            setTimeout(() => {
+                document.getElementById(aiId).innerText = "Thanks for your message! I'm currently in demo mode.";
+            }, 1000);
+        });
+
+        // Certification Modal
+        function openModal(imgSrc) {
+            const modal = document.getElementById('certModal');
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = imgSrc;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('certModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close modal when clicking on backdrop
+        document.getElementById('certModal').addEventListener('click', (e) => {
+            if (e.target.id === 'certModal') closeModal();
+        });
+    </script>
+</body>
+</html>
