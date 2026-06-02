@@ -43,12 +43,12 @@ function closeCertModal() {
 // LIBRARY MANAGEMENT SYSTEM MODAL
 // ==================================
 const libSlides = [
-    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\login.jpg',       caption: 'Login' },
-    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\dashboard.jpg',   caption: 'Main Dashboard' },
-    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\listofbooks.jpg', caption: 'List of Books' },
-    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\addbook.jpg',     caption: 'Add Book' },
-    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\borrowbook.jpg',  caption: 'Borrow Book' },
-    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\returnbook.jpg',  caption: 'Return Book' },
+    { src: 'Images/LibraryManagementSystem/login.jpg',       caption: 'Login' },
+    { src: 'Images/LibraryManagementSystem/dashboard.jpg',   caption: 'Main Dashboard' },
+    { src: 'Images/LibraryManagementSystem/listofbooks.jpg', caption: 'List of Books' },
+    { src: 'Images/LibraryManagementSystem/addbook.jpg',     caption: 'Add Book' },
+    { src: 'Images/LibraryManagementSystem/borrowbook.jpg',  caption: 'Borrow Book' },
+    { src: 'Images/LibraryManagementSystem/returnbook.jpg',  caption: 'Return Book' },
 ];
 
 let libCurrent = 0;
