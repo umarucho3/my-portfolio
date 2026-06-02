@@ -1,12 +1,12 @@
-// Dark Mode Toggle
+// ==================
+// DARK MODE TOGGLE
+// ==================
 const darkToggle = document.getElementById('darkModeToggle');
 const html = document.documentElement;
 const darkIcon = document.querySelector('.dark-icon');
 const lightIcon = document.querySelector('.light-icon');
 
-// Load saved theme
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
+if (localStorage.getItem('theme') === 'dark') {
     html.classList.add('dark');
     darkIcon.classList.add('hidden');
     lightIcon.classList.remove('hidden');
@@ -19,74 +19,91 @@ darkToggle.addEventListener('click', () => {
     localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
 });
 
-// Chat Widget
-const toggleChat = document.getElementById('toggle-chat');
-const closeChat = document.getElementById('close-chat');
-const chatWindow = document.getElementById('chat-window');
-const chatForm = document.getElementById('chat-form');
-const chatBox = document.getElementById('chat-box');
-const messageInput = document.getElementById('message');
 
-toggleChat.addEventListener('click', () => {
-    chatWindow.classList.remove('hidden');
-    messageInput.focus();
-});
-
-closeChat.addEventListener('click', () => {
-    chatWindow.classList.add('hidden');
-});
-
-chatForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const userMsg = messageInput.value.trim();
-    if (!userMsg) return;
-
-    // Add user message
-    chatBox.innerHTML += `
-        <div class="bg-black text-white p-3 rounded-2xl rounded-tr-none text-sm max-w-[85%] ml-auto">
-            ${userMsg}
-        </div>`;
-    
-    messageInput.value = '';
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    // Add AI thinking bubble
-    const aiId = 'ai-' + Date.now();
-    chatBox.innerHTML += `
-        <div id="${aiId}" class="bg-white p-3 rounded-2xl rounded-tl-none border text-sm max-w-[85%]">
-            <span class="text-gray-400">Typing...</span>
-        </div>`;
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    // Simulate AI response (replace with your actual API call)
-    setTimeout(() => {
-        document.getElementById(aiId).innerText = "Thanks for your message! I'm currently in demo mode.";
-    }, 1000);
-});
-
-// Certification Modal
-function openModal(imgSrc) {
+// =======================
+// CERTIFICATION MODAL
+// =======================
+function openCertModal(imgSrc) {
+    document.getElementById('certModalImage').src = imgSrc;
     const modal = document.getElementById('certModal');
-    const modalImg = document.getElementById('modalImage');
-    modalImg.src = imgSrc;
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.body.style.overflow = 'hidden';
 }
 
-function closeModal() {
+function closeCertModal() {
     const modal = document.getElementById('certModal');
     modal.classList.add('hidden');
     modal.classList.remove('flex');
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = '';
 }
 
-// Close modal on Escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-});
 
-// Close modal when clicking on backdrop
-document.getElementById('certModal').addEventListener('click', (e) => {
-    if (e.target.id === 'certModal') closeModal();
+// ==================================
+// LIBRARY MANAGEMENT SYSTEM MODAL
+// ==================================
+const libSlides = [
+    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\login.jpg',       caption: 'Login' },
+    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\dashboard.jpg',   caption: 'Main Dashboard' },
+    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\listofbooks.jpg', caption: 'List of Books' },
+    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\addbook.jpg',     caption: 'Add Book' },
+    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\borrowbook.jpg',  caption: 'Borrow Book' },
+    { src: 'C:\\Users\\maureta\\Downloads\\My_Portfolio\\LibraryManagementSystem\\returnbook.jpg',  caption: 'Return Book' },
+];
+
+let libCurrent = 0;
+
+function openLibModal(startIndex) {
+    libCurrent = startIndex || 0;
+    renderLibSlide();
+    renderLibDots();
+    const modal = document.getElementById('libModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLibModal() {
+    const modal = document.getElementById('libModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+}
+
+function changeLibSlide(dir) {
+    libCurrent = (libCurrent + dir + libSlides.length) % libSlides.length;
+    renderLibSlide();
+    renderLibDots();
+}
+
+function renderLibSlide() {
+    const s = libSlides[libCurrent];
+    document.getElementById('libSlideContainer').innerHTML =
+        `<img src="${s.src}" class="w-full h-[520px] object-cover" alt="Slide ${libCurrent + 1}"
+              onerror="this.style.height='200px';this.style.objectFit='contain';this.style.background='#1f2937'">`;
+    document.getElementById('libCaption').textContent = s.caption;
+}
+
+function renderLibDots() {
+    document.getElementById('libDotWrap').innerHTML = libSlides.map((_, i) =>
+        `<div onclick="libCurrent=${i}; renderLibSlide(); renderLibDots()"
+            class="w-2 h-2 rounded-full cursor-pointer transition-all duration-200 ${i === libCurrent ? 'bg-blue-400 scale-125' : 'bg-gray-600 hover:bg-gray-400'}"></div>`
+    ).join('');
+}
+
+
+// =======================
+// KEYBOARD NAVIGATION
+// =======================
+document.addEventListener('keydown', (e) => {
+    // Certification modal
+    if (document.getElementById('certModal').classList.contains('flex')) {
+        if (e.key === 'Escape') closeCertModal();
+    }
+    // Library modal
+    if (document.getElementById('libModal').classList.contains('flex')) {
+        if (e.key === 'ArrowLeft')  changeLibSlide(-1);
+        if (e.key === 'ArrowRight') changeLibSlide(1);
+        if (e.key === 'Escape')     closeLibModal();
+    }
 });
