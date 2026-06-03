@@ -79,8 +79,8 @@ function changeLibSlide(dir) {
 function renderLibSlide() {
     const s = libSlides[libCurrent];
     document.getElementById('libSlideContainer').innerHTML =
-        `<img src="${s.src}" class="w-full h-[520px] object-cover" alt="Slide ${libCurrent + 1}"
-              onerror="this.style.height='200px';this.style.objectFit='contain';this.style.background='#1f2937'">`;
+        `<img src="${s.src}" class="w-full h-[220px] sm:h-[380px] md:h-[520px] object-contain bg-gray-900" alt="Slide ${libCurrent + 1}"
+              onerror="this.style.objectFit='contain';this.style.background='#1f2937'">`;
     document.getElementById('libCaption').textContent = s.caption;
 }
 
