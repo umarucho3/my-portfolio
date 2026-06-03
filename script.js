@@ -45,21 +45,21 @@ function closeCertModal() {
 const libSlides = [
     { src: 'Images/LibraryManagementSystem/login.jpg',       caption: 'Login' },
     { src: 'Images/LibraryManagementSystem/dashboard.jpg',   caption: 'Main Dashboard' },
-    { src: 'Images/LibraryManagementSystem/listofbooks.jpg', caption: 'List of Books' },
+    { src: '#', caption: 'List of Books' },
     { src: 'Images/LibraryManagementSystem/addbook.jpg',     caption: 'Add Book' },
     { src: 'Images/LibraryManagementSystem/borrowbook.jpg',  caption: 'Borrow Book' },
     { src: 'Images/LibraryManagementSystem/returnbook.jpg',  caption: 'Return Book' },
     { src: 'Images/LibraryManagementSystem/overdue.jpg',  caption: 'Overdue Book' },
-    { src: 'Images/LibraryManagementSystem/lostbook.jpg',  caption: 'Lost Book' },
-    { src: 'Images/LibraryManagementSystem/damagedbook.jpg',  caption: 'Damaged Book' },
+    { src: '#',  caption: 'Lost Book' },
+    { src: '#',  caption: 'Damaged Book' },
     { src: 'Images/LibraryManagementSystem/bookfine.jpg',  caption: 'Book Fine' },
     { src: 'Images/LibraryManagementSystem/replacebook.jpg',  caption: 'Replace Book' },
-    { src: 'Images/LibraryManagementSystem/studentregistration.jpg',  caption: 'Student Registration' },
+    { src: '#',  caption: 'Student Registration' },
     { src: 'Images/LibraryManagementSystem/studentlogs.jpg',  caption: 'Timein/Timeout' },
-    { src: 'Images/LibraryManagementSystem/searchbook.jpg',  caption: 'Search Books' },
+    { src: '#',  caption: 'Search Books' },
     { src: 'Images/LibraryManagementSystem/account.jpg',  caption: 'Account' },
     { src: 'Images/LibraryManagementSystem/activitylogs.jpg',  caption: 'Activity Logs' },
-    { src: 'Images/LibraryManagementSystem/navigationmenus.jpg',  caption: 'Navigation Menus' }
+    { src: '#',  caption: 'Navigation Menus' }
 ];
 
 let libCurrent = 0;
