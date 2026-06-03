@@ -59,7 +59,7 @@ const libSlides = [
     { src: 'Images/LibraryManagementSystem/searchbook.jpg',  caption: 'Search Books' },
     { src: 'Images/LibraryManagementSystem/account.jpg',  caption: 'Account' },
     { src: 'Images/LibraryManagementSystem/activitylogs.jpg',  caption: 'Activity Logs' },
-    { src: 'Images/LibraryManagementSystem/navigationmenus.jpg',  caption: 'Navigation Menus' },
+    { src: 'Images/LibraryManagementSystem/navigationmenus.jpg',  caption: 'Navigation Menus' }
 ];
 
 let libCurrent = 0;
