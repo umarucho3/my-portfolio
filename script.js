@@ -45,7 +45,7 @@ function closeCertModal() {
 const libSlides = [
     { src: 'Images/LibraryManagementSystem/login.jpg',       caption: 'Login' },
     { src: 'Images/LibraryManagementSystem/dashboard.jpg',   caption: 'Main Dashboard' },
-    { src: 'Images/LibraryManagementSystem/dashboard.jpg', caption: 'List of Books' },
+    { src: 'Images/LibraryManagementSystem/listofbooks.jpg', caption: 'List of Books' },
     { src: 'Images/LibraryManagementSystem/addbook.jpg',     caption: 'Add Book' },
     { src: 'Images/LibraryManagementSystem/borrowbook.jpg',  caption: 'Borrow Book' },
     { src: 'Images/LibraryManagementSystem/returnbook.jpg',  caption: 'Return Book' },
