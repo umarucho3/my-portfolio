@@ -106,7 +106,7 @@ function renderLibDots() {
 // ==================================
 // MOCKEXAM PORTAL
 // ==================================
-const libSlides = [
+const mockSlides = [
     { src: 'Images/LibraryManagementSystem/login.jpg',       caption: 'Login' },
     { src: 'Images/LibraryManagementSystem/dashboard.jpg',   caption: 'Main Dashboard' },
     { src: 'Images/LibraryManagementSystem/listofbooks.jpg', caption: 'List of Books' },
@@ -147,8 +147,8 @@ function closeMockModal() {
 
 function changeMockSlide(dir) {
     mockCurrent = (mockCurrent + dir + mockSlides.length) % mockSlides.length;
-    renderLibSlide();
-    renderLibDots();
+    renderMockSlide();
+    renderMockDots();
 }
 
 function renderMockSlide() {
