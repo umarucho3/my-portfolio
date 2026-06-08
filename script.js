@@ -57,7 +57,7 @@ const libSlides = [
     { src: 'Images/LibraryManagementSystem/studentregistration.jpg',  caption: 'Student Registration' },
     { src: 'Images/LibraryManagementSystem/studentlogs.jpg',  caption: 'Timein/Timeout' },
     { src: 'Images/LibraryManagementSystem/studentbook.jpg',  caption: 'Search Books' },
-    { src: 'Images/LibraryManagementSystem/addacount.jpg',  caption: 'Account' },
+    { src: 'Images/LibraryManagementSystem/addaccount.jpg',  caption: 'Account' },
     { src: 'Images/LibraryManagementSystem/activitylogs.jpg',  caption: 'Activity Logs' },
     { src: 'Images/LibraryManagementSystem/navigationmenus.jpg',  caption: 'Navigation Menus' }
 ];
